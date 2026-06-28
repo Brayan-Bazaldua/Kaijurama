@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaijurama</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/kaijurama-logo.png">
+</head>
+<body>
+
+    <button id="btn-mute">🔊</button>
+    
+    <div id="bloqueo-audio" class="pantalla">
+        <div class="contenido-inicio">
+            <h3>¿Listo para el combate?</h3>
+            <button id="btn-entrar-juego">ENTRAR</button>
+        </div>
+    </div>
+
+    <div id="pantalla-inicio" class="pantalla oculto">
+        <div class="contenido-inicio">
+            <h3>Juanotron</h3>
+            <h3>presenta</h3>
+            <h1>KAIJURAMA</h1>
+            <button id="btn-comenzar">Comenzar</button>
+            
+            <div id="modos" class="oculto">
+                <button class="modo-juego" data-tiempo="inf">Baby Kaiju</button>
+                <button class="modo-juego" data-tiempo="90">Kaiju JR</button>
+                <button class="modo-juego" data-tiempo="60">Kaiju</button>
+                <button class="modo-juego" data-tiempo="45">King Kaiju</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="Instagram">
+        <a href="https://www.instagram.com/juanotron.contreras/" target="_blank" class="enlace-tarjeta">
+            <p class="texto-sigueme">Sígueme en Instagram</p>
+            <div class="bloque-perfil">
+                <img src="img/instagram.png" alt="Instagram" class="icono-redes">
+                <span class="usuario-ig">@Juanotron</span>
+            </div>
+        </a>
+    </div>
+
+    <div id="pantalla-juego" class="pantalla oculto">
+        <div class="marcador">
+            <span>Tiempo: <span id="tiempo">0s</span></span>
+            <span>Movimientos: <span id="movimientos">0</span></span>
+            
+            <div class="marcador-botones">
+                <img id="btn-reiniciar" src="img/refresh.jpeg" alt="Reiniciar" title="Reiniciar">
+                <img id="btn-salir" src="img/close.jpg" alt="Salir" title="Salir">
+            </div>
+        </div>
+        <div id="tablero" class="tablero"></div>
+    </div>
+
+   <div id="pantalla-final" class="pantalla oculto">
+        <div class="contenido-final">
+            <h2>¡Gracias por jugar!</h2>
+            
+            <p id="subtitulo-resultado"></p>
+            <div id="stats-resultado" class="stats-juego"></div>
+            
+            <div class="marcador-botones">
+                <img id="btn-reiniciar-final" src="img/refresh.jpeg" alt="Reiniciar" title="Reiniciar">
+                <img id="btn-salir-final" src="img/close.jpg" alt="Salir" title="Salir">
+            </div>
+        </div>
+    </div>
+
+    <audio id="musica-fondo" src="audio/GodzillaTheme.m4a" loop> </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

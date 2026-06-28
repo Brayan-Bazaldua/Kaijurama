@@ -1,0 +1,572 @@
+/* ==========================================
+   1. ESTILOS GENERALES Y BASE
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; 
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* ==========================================
+   2. INTERFAZ Y PANTALLAS (Arquitectura Single Page)
+   ========================================== */
+.pantalla {
+    background: url('img/KaijuFondo.png') no-repeat center center/cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; 
+    transition: opacity 0.2s ease-in-out;
+}
+
+#pantalla-inicio {
+    background: url('img/KaijuFondo.png') no-repeat center center/cover;
+}
+
+.contenido-inicio {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.45);
+    padding: clamp(25px, 5vh, 45px);
+    border-radius: 25px;
+    width: 85vw;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+}
+
+#modos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* ==========================================
+   3. TIPOGRAFÍAS Y BOTONES
+   ========================================== */
+h1 {
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem) !important; 
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(179, 0, 0, 0.8), 2px 2px 5px rgba(0, 0, 0, 0.9); 
+    transform: rotate(-2deg); 
+    line-height: .95;
+    margin-bottom: 15px;
+    width: 100%;
+    white-space: nowrap !important; 
+    word-wrap: normal !important; 
+    padding: 0 5px; 
+    font-display: swap;
+    overflow: hidden;
+}
+
+h3 {
+    font-family: "League Spartan", sans-serif;
+    font-style: normal;
+    font-size: clamp(1.6rem, 4vw, 2.5rem); 
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px #b30000;
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: #b30000;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: clamp(1.1rem, 2vh, 1.3rem);
+    cursor: pointer;
+    border-radius: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background-color: #e60000;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(230, 0, 0, 0.4);
+}
+
+.modo-juego {
+    width: 100%;
+    max-width: 280px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    margin: 0 auto;
+}
+
+#btn-mute {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 10005;
+    padding: 10px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+/* ==========================================
+   4. MARCADOR Y MOTOR DEL TABLERO
+   ========================================== */
+.marcador, .marcador-final {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px 20px !important;
+    margin: 0 auto 15px auto !important;
+    width: 90vw !important;       
+    max-width: 440px !important; 
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important; 
+    border-radius: 12px;
+    box-sizing: border-box !important;
+}
+
+.marcador-texto {
+    display: flex;
+    gap: 20px;
+}
+
+.marcador span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap; 
+}
+
+.marcador-botones {
+    display: flex;
+    gap: 10px;
+}
+
+#btn-reiniciar, #btn-salir, #btn-reiniciar-final, #btn-salir-final {
+    width: 42px !important;
+    height: 42px !important;
+    object-fit: cover !important;    
+    border-radius: 10px !important;   
+    cursor: pointer;
+    transition: transform 0.2s !important;
+}
+
+#btn-reiniciar:hover, #btn-salir:hover, #btn-reiniciar-final:hover, #btn-salir-final:hover {
+    transform: scale(1.08) !important;
+}
+
+.tablero {
+    display: grid;
+    border-radius: 12px;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: clamp(10px, 2vh, 16px); 
+    width: 90vw;
+    max-width: 440px; 
+    max-height: 60vh; 
+    margin: 0 auto;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2); 
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================
+   5. COMPONENTES DE CARTAS (Renderizado y Animación 3D)
+   ========================================== */
+.carta {
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    position: relative;
+    transform-style: preserve-3d !important;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.carta.volteada {
+    transform: var(--inclinacion, rotate(0deg)) rotateY(180deg) !important;
+}
+
+.cara {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden !important; 
+    -webkit-backface-visibility: hidden !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.cara.atras {
+    background: url('img/back.jpg') no-repeat center center/cover;
+    background-color: #333;
+    border: 2px solid #555;
+    z-index: 2;
+}
+
+.cara.frente {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotateY(180deg);
+}
+
+/* ==========================================
+   6. ANIMACIONES DE RETROALIMENTACIÓN VISUAL
+   ========================================== */
+.carta.error .cara {
+    animation: vibracionPorMargin 0.3s ease-in-out !important;
+    animation-delay: 0.2s !important;
+}
+
+.carta.acierto .cara {
+    animation: brilloVictoria 1s ease-in-out !important;
+    animation-delay: 0.3s !important;
+}
+
+@keyframes brilloVictoria {
+    0%, 100% { 
+        filter: brightness(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    50% { 
+        filter: brightness(1.8); 
+        box-shadow: 0 0 15px rgb(242, 255, 0); 
+    }
+}
+
+@keyframes vibracionPorMargin {
+    0%, 100% { 
+        margin-left: 0; 
+    }
+    20%, 60% { 
+        margin-left: -8px; 
+    }
+    40%, 80% { 
+        margin-left: 8px;  
+    }
+}
+
+/* ==========================================
+   7. CRÉDITOS E INTEGRACIÓN DE REDES
+   ========================================== */
+#Instagram {
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 10000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform-origin: center bottom !important;
+}
+
+.enlace-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: rgba(20, 20, 20, 0.85);
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 8px 12px;
+    text-decoration: none !important; 
+    outline: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.texto-sigueme {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.bloque-perfil {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icono-redes {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.usuario-ig {
+    color: #e60000;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(230, 0, 0, 0.6);
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+    #Instagram:hover {
+        transform: translateY(-3px);
+    }
+    #Instagram:hover .enlace-tarjeta {
+        border-color: #ffffff;
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+    }
+    #Instagram:hover .usuario-ig {
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* ==========================================
+   8. MEDIA QUERIES (Diseño Dispositivos Móviles)
+   ========================================== */
+@media (max-width: 480px) {
+    .marcador, .marcador-final {
+        max-width: 90vw !important;
+        padding: 8px 12px !important;
+        gap: 15px !important;
+    }
+
+    .marcador-texto {
+        gap: 10px !important;          
+    }
+
+    .marcador span {
+        font-size: clamp(0.85rem, 3.2vw, 0.95rem) !important;
+    }
+
+    .marcador-botones {
+        gap: 6px !important;
+    }
+
+    #btn-reiniciar, #btn-salir, #btn-reiniciar-final, #btn-salir-final {
+        width: clamp(36px, 8.5vw, 42px) !important;
+        height: clamp(36px, 8.5vw, 42px) !important;
+        border-radius: 8px !important;
+    }
+}
+
+@media (max-height: 740px), (max-width: 400px) {
+    h1 {
+        font-size: clamp(3rem, 12vw, 4.5rem);
+    }
+    h3 {
+        font-size: 1.8rem;
+    }
+    button {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    .tablero {
+        gap: 8px; 
+    }
+    #Instagram {
+        bottom: 10px;
+        right: 15px;
+    }
+}
+
+/* ==========================================
+   9. MEDIA QUERIES (Diseño Tablets)
+   ========================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .pantalla {
+        max-width: 100vw;
+        max-height: 100vh;
+        padding: 40px 0 !important;
+    }
+
+    .marcador, .marcador-final {
+        width: 92% !important;           
+        max-width: 630px !important;     
+        margin: 0 auto 25px auto !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        padding: 14px 22px !important;   
+        box-sizing: border-box !important;
+    }
+    
+    .tablero {
+        width: 92% !important;           
+        max-width: 630px !important;     
+        margin: 0 auto !important;
+        padding: 20px !important;        
+    }
+
+    .marcador span {
+        font-size: 1.3rem !important;    
+    }
+
+    #btn-reiniciar, #btn-salir, #btn-reiniciar-final, #btn-salir-final {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    #Instagram {
+        position: fixed !important;
+        bottom: 35px !important;
+        right: 50% !important;
+        transform: translateX(50%) scale(1.35) !important; 
+        transform-origin: center bottom !important;
+    }
+
+    @media (hover: hover) {
+        #Instagram:hover {
+            transform: translateX(50%) scale(1.35) translateY(-3px) !important;
+        }
+    }
+}
+
+/* ==========================================
+   10. MEDIA QUERIES (Diseño Escritorio)
+   ========================================== */
+@media (min-width: 1025px) {
+    .pantalla {
+        max-width: none; 
+        max-height: none;
+    }
+
+    .marcador, .marcador-final {
+        width: 100% !important;
+        max-width: 440px !important;     
+        margin: 0 auto 20px auto !important;
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+    
+    .tablero {
+        width: 100% !important;
+        max-width: 440px !important;
+        margin: 0 auto !important;
+    }
+
+   #Instagram {
+        position: fixed;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    @media (hover: hover) {
+        #Instagram:hover {
+            transform: translateX(50%) translateY(-3px) !important;
+        }
+    }
+}
+
+/* ==========================================
+   11. PANEL DE RESULTADOS (Pantalla Final)
+   ========================================== */
+.contenido-final {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.65); 
+    padding: clamp(25px, 5vh, 45px);
+    border-radius: 25px;
+    width: 85vw;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+}
+
+.contenido-final h2 {
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: clamp(3rem, 8vw, 5.5rem); 
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(179, 0, 0, 0.8), 2px 2px 5px rgba(0, 0, 0, 0.9);
+    transform: rotate(-1deg);
+    line-height: 0.95;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+#subtitulo-resultado {
+    font-family: "League Spartan", sans-serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 1px 1px 0px #b30000;
+    margin-bottom: 5px;
+}
+
+.stats-juego {
+    font-family: "League Spartan", sans-serif;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.contenido-final .marcador-botones {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px !important; 
+    width: 100% !important;
+    margin-top: 10px;
+}
+
+.contenido-final .marcador-botones img {
+    width: clamp(45px, 10vw, 55px) !important;  
+    height: clamp(45px, 10vw, 55px) !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+    transition: transform 0.2s ease !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.contenido-final .marcador-botones img:hover {
+    transform: scale(1.1) !important;
+}
+
+/* ==========================================
+   LINK EN LA PURA IMAGEN DE DESARROLLADOR
+   ========================================== */
+.creditos-desarrollador-home {
+    margin-top: 18px; /* Separación abajo de Comenzar */
+    display: flex;
+    justify-content: center;
+}
+
+.icono-dev-img {
+    width: 32px; /* Tamaño del icono */
+    height: 32px;
+    object-fit: contain;
+    opacity: 0.5; /* Se ve tenue para no competir con el diseño */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icono-dev-img:hover {
+    opacity: 1; /* Brilla al 100% */
+    transform: scale(1.15); /* Crece un poquito */
+}
