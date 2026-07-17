@@ -389,9 +389,21 @@ button:hover {
    8. MEDIA QUERIES (Diseño Dispositivos Móviles)
    ========================================== */
 @media (max-width: 480px) {
+   
+    .pantalla {
+        justify-content: flex-start !important;
+        padding-top: max(60px, 8vh) !important;
+    }
+
     .marcador, .marcador-final {
         padding: 8px 12px !important;
         gap: 15px !important;
+        margin: 0 auto 10px auto !important;
+    }
+
+    .tablero {
+        gap: 8px !important; 
+        padding-top: 0 !important;
     }
 
     .marcador-texto {
@@ -419,6 +431,15 @@ button:hover {
 
 /* Teléfonos muy pequeños o antiguos (pantallas bajas) */
 @media (max-height: 740px), (max-width: 400px) {
+    .pantalla {
+        justify-content: flex-start !important;
+        padding-top: max(50px, 6vh) !important; 
+    }
+
+    .marcador, .marcador-final {
+        margin: 0 auto 8px auto !important; 
+    }
+
     h1 {
         font-size: clamp(2.1rem, 3vw, 1.5rem);
     }
@@ -431,7 +452,8 @@ button:hover {
         width: 160px; 
     }
     .tablero {
-        gap: 8px; 
+        gap: 6px !important;
+        padding: 5px !important;
     }
     #Instagram {
         bottom: 10px;
