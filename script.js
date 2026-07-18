@@ -134,6 +134,8 @@ modoBotones.forEach(boton => {
 function restaurarTiempoPorModo() {
     if (modoSeleccionado.includes("Baby")) {
         tiempoLimite = Infinity;
+    } else if (modoSeleccionado.includes("JR")) {
+        tiempoLimite = 90;
     } else if (modoSeleccionado.includes("King")) {
         tiempoLimite = 30;
     } else {
