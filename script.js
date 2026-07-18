@@ -120,19 +120,18 @@ btnComenzar.addEventListener('click', () => {
 modoBotones.forEach(boton => {
     boton.addEventListener('click', (e) => {
         reproducirSFX(sfxBoton); 
-        const tiempo = e.target.getAttribute('data-tiempo');
         
-        tiempoLimite = tiempo === 'inf' ? Infinity : parseInt(tiempo);
         modoSeleccionado = e.target.textContent; 
+        restaurarTiempoPorModo(); 
 
         if (pantallaInicio) pantallaInicio.classList.add('oculto');
         if (pantallaJuego) pantallaJuego.classList.remove('oculto');
         inicializarJuego(); 
     });
 });
-
 function restaurarTiempoPorModo() {
-    if (modoSeleccionado.includes("Baby")) {
+
+    if (modoSeleccionado.includes("Baby") || modoSeleccionado.toLowerCase().includes("inf")) {
         tiempoLimite = Infinity;
     } else if (modoSeleccionado.includes("JR")) {
         tiempoLimite = 90;
