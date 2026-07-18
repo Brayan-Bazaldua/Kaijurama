@@ -50,14 +50,14 @@ let idIntervalo = null;
 let modoSeleccionado = ''; 
 
 const iconos = [
-    'img/cards/01_goji.jpg', 
-    'img/cards/02_ghidorah.jpg', 
-    'img/cards/03_mothra.jpg', 
-    'img/cards/04_rodan.jpg', 
-    'img/cards/05_anguirus.jpg', 
-    'img/cards/06_mecha.jpg', 
-    'img/cards/07_gigan.jpg', 
-    'img/cards/08_gojijr.jpg' 
+    'img/cards/01_goji.webp', 
+    'img/cards/02_ghidorah.webp', 
+    'img/cards/03_mothra.webp', 
+    'img/cards/04_rodan.webp', 
+    'img/cards/05_anguirus.webp', 
+    'img/cards/06_mecha.webp', 
+    'img/cards/07_gigan.webp', 
+    'img/cards/08_gojijr.webp' 
 ];
 
 let cartasDuplicadas = [...iconos, ...iconos];
@@ -65,6 +65,21 @@ let cartasVolteadas = [];
 let movimientos = 0;
 let parejasEncontradas = 0;
 
+const fondosYExtras = [
+    'img/KaijuFondo.webp',
+    'img/KaijuFondo2.webp',
+    'img/cards/back.webp'
+];
+
+const todasLasImagenes = [...fondosYExtras, ...iconos];
+
+function iniciarPrecarga() {
+    todasLasImagenes.forEach(ruta => {
+        const img = new Image();
+        img.src = ruta;
+    });
+}
+iniciarPrecarga();
 // ==========================================
 // CONTROL DE AUDIO GENERAL
 // ==========================================
