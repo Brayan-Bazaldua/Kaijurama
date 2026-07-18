@@ -34,7 +34,7 @@ body {
    2. INTERFAZ Y PANTALLAS (Arquitectura Single Page)
    ========================================== */
 .pantalla {
-    background: url('img/KaijuFondo.png') no-repeat center center/cover;
+    background: url('img/KaijuFondo.webp') no-repeat center center/cover;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -47,11 +47,11 @@ body {
 }
 
 #pantalla-inicio {
-    background: url('img/KaijuFondo.png') no-repeat center center/cover;
+    background: url('img/KaijuFondo.webp') no-repeat center center/cover;
 }
 
 #pantalla-juego {
-    background: url('img/KaijuFondo2.png') no-repeat center center/cover;
+    background: url('img/KaijuFondo2.webp') no-repeat center center/cover;
 }
 
 .contenido-inicio{
